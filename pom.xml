@@ -142,6 +142,8 @@
         <spring-data.version>2.2.0.RELEASE</spring-data.version>
         <spring-web.version>5.2.0.RELEASE</spring-web.version>
         <spring-security.version>5.2.0.RELEASE</spring-security.version>
+        <spring-ldap.version>2.3.2.RELEASE</spring-ldap.version>
+        <spring-plugin.version>2.0.0.RELEASE</spring-plugin.version>
         <tomcat.version>9.0.27</tomcat.version>
         <commons-io.version>2.4</commons-io.version>
         <commons-collections.version>4.3</commons-collections.version>
@@ -1930,6 +1932,35 @@
                 <version>${spring-web.version}</version>
                 <scope>compile</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.ldap</groupId>
+                <artifactId>spring-ldap-core</artifactId>
+                <version>${spring-ldap.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.plugin</groupId>
+                <artifactId>spring-plugin-core</artifactId>
+                <version>${spring-plugin.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.plugin</groupId>
+                <artifactId>spring-plugin-metadata</artifactId>
+                <version>${spring-plugin.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>${spring-web.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
 
         </dependencies>
 
