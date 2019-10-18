@@ -152,6 +152,7 @@
         <h2-database.version>1.4.196</h2-database.version>
         <jwt.version>0.6.0</jwt.version>
         <javax-persistence.version>2.2</javax-persistence.version>
+        <jakarta-persistence.version>2.2.3</jakarta-persistence.version>
         <javax-validation.version>2.0.1.Final</javax-validation.version>
         <gaian.version>2.1.8</gaian.version>
         <avro.version>1.9.1</avro.version>
@@ -322,6 +323,13 @@
                 <artifactId>javax.persistence-api</artifactId>
                 <scope>compile</scope>
                 <version>${javax-persistence.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <scope>compile</scope>
+                <version>${jakarta-persistence.version}</version>
             </dependency>
 
             <dependency>
