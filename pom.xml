@@ -169,6 +169,7 @@
         <commons-logging.version>1.2</commons-logging.version>
         <commons-codec.version>1.13</commons-codec.version>
         <joda-time.version>2.10.1</joda-time.version>
+        <jaxb.version>2.3.0</jaxb.version>
 
         <!-- Versions of plugins -->
         <enunciate-maven-plugin.version>2.10.1</enunciate-maven-plugin.version>
@@ -1948,6 +1949,11 @@
                 <scope>compile</scope>
             </dependency>
 
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb.version}</version>
+            </dependency>
 
         </dependencies>
 
