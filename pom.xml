@@ -157,7 +157,7 @@
         <ranger.version>1.2.0</ranger.version>
         <plexus.version>3.3.0</plexus.version>
         <quartz.version>2.3.2</quartz.version>
-        <tinkergraph.version>3.3.3</tinkergraph.version>
+        <tinkergraph.version>3.4.4</tinkergraph.version>
         <lucene-analyzers-common.version>7.0.0</lucene-analyzers-common.version>
         <cassandra.version>3.7.2</cassandra.version>
         <guava.version>23.0</guava.version>
