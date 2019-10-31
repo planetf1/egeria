@@ -166,6 +166,7 @@
         <commons-codec.version>1.13</commons-codec.version>
         <json-sanitizer.version>1.2.0</json-sanitizer.version>
         <googlefindbugs.version>3.0.2</googlefindbugs.version>
+        <groovy.version>3.0.0-rc-1</groovy.version>
 
         <!-- Versions of plugins -->
         <enunciate-maven-plugin.version>2.10.1</enunciate-maven-plugin.version>
@@ -1932,6 +1933,11 @@
                 <version>${googlefindbugs.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy</artifactId>
+                <version>${groovy.version}9</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
