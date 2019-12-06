@@ -37,6 +37,9 @@
                         <goals>
                             <goal>build</goal>
                         </goals>
+                        <configuration>
+                            <tag>${project.version}</tag>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>tag-version</id>
@@ -48,7 +51,7 @@
                             <tag>${project.version}</tag>
                         </configuration>
                     </execution>
-                    <execution>
+                    <!--execution>
                         <id>push-latest</id>
                         <phase>install</phase>
                         <goals>
@@ -57,7 +60,7 @@
                         <configuration>
                             <tag>latest</tag>
                         </configuration>
-                    </execution>
+                    </execution-->
                     <execution>
                         <id>push-version</id>
                         <phase>install</phase>
