@@ -2130,7 +2130,7 @@
                             <include>**/*Test.java</include>
                         </includes>
                         <systemPropertyVariables>
-                            <org.slf4j.simpleLogger.defaultLogLevel>INFO</org.slf4j.simpleLogger.defaultLogLevel>
+                            <org.slf4j.simpleLogger.defaultLogLevel>WARN</org.slf4j.simpleLogger.defaultLogLevel>
                         </systemPropertyVariables>
                     </configuration>
                     <dependencies>
