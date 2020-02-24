@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: CC-BY-4.0 -->
 <!-- Copyright Contributors to the ODPi Egeria project. -->
 
-# Open Metadata and Governance (OMAG) Server Platform
+# Inside the Open Metadata and Governance (OMAG) Server Platform
 
 The **OMAG server platform** provides the server environment for running open metadata
 and governance services.  It hosts one or more **[OMAG servers](omag-server.md)**.  Each server is configured to support specific
@@ -39,7 +39,7 @@ Figure 2 shows the configuration services creating three configuration documents
 ![Figure 2](omag-server-platform-configure.png)
 > Figure 2: Creating configuration documents for OMAG Servers
 
-The [Administration Services User Guide](../../../open-metadata-implementation/admin-services/Using-the-Admin-Services.md)
+The [Administration Services User Guide](../../../open-metadata-implementation/admin-services/docs/user)
 provides detailed instructions on creating configuration documents.
 
 Once a configuration document for an OMAG server is used by

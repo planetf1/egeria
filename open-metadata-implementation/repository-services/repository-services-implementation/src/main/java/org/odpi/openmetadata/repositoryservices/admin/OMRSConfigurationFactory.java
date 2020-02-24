@@ -3,7 +3,12 @@
 package org.odpi.openmetadata.repositoryservices.admin;
 
 import org.odpi.openmetadata.adapters.repositoryservices.ConnectorConfigurationFactory;
-import org.odpi.openmetadata.adminservices.configuration.properties.*;
+import org.odpi.openmetadata.adminservices.configuration.properties.CohortConfig;
+import org.odpi.openmetadata.adminservices.configuration.properties.EnterpriseAccessConfig;
+import org.odpi.openmetadata.adminservices.configuration.properties.LocalRepositoryConfig;
+import org.odpi.openmetadata.adminservices.configuration.properties.OpenMetadataEventProtocolVersion;
+import org.odpi.openmetadata.adminservices.configuration.properties.OpenMetadataExchangeRule;
+import org.odpi.openmetadata.adminservices.configuration.properties.RepositoryServicesConfig;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.TypeDefSummary;
 
@@ -143,8 +148,7 @@ public class OMRSConfigurationFactory
 
         localRepositoryConfig.setMetadataCollectionId(UUID.randomUUID().toString());
         localRepositoryConfig.setLocalRepositoryLocalConnection(connectorConfigurationFactory.getDefaultLocalRepositoryLocalConnection());
-        localRepositoryConfig.setLocalRepositoryRemoteConnection(connectorConfigurationFactory.getDefaultLocalRepositoryRemoteConnection(repositoryName,
-                                                                                                                                         localServerName,
+        localRepositoryConfig.setLocalRepositoryRemoteConnection(connectorConfigurationFactory.getDefaultLocalRepositoryRemoteConnection(localServerName,
                                                                                                                                          localServerURL));
         localRepositoryConfig.setEventsToSaveRule(this.getDefaultEventsToSaveRule());
         localRepositoryConfig.setSelectedTypesToSave(this.getDefaultSelectedTypesToSave());
@@ -171,8 +175,7 @@ public class OMRSConfigurationFactory
                                                                                            localServerName,
                                                                                            localServerURL);
 
-        localRepositoryConfig.setLocalRepositoryLocalConnection(connectorConfigurationFactory.getInMemoryLocalRepositoryLocalConnection(repositoryName,
-                                                                                                                                        localServerName));
+        localRepositoryConfig.setLocalRepositoryLocalConnection(connectorConfigurationFactory.getInMemoryLocalRepositoryLocalConnection());
 
         return localRepositoryConfig;
     }
@@ -183,10 +186,13 @@ public class OMRSConfigurationFactory
      *
      * @param localServerName name of local server
      * @param localServerURL  URL root of local server used for REST calls
+     * @param storageProperties  properties used to configure Egeria Graph DB
+     *
      * @return LocalRepositoryConfig object
      */
     public LocalRepositoryConfig getLocalGraphLocalRepositoryConfig(String              localServerName,
-                                                                    String              localServerURL)
+                                                                    String              localServerURL,
+                                                                    Map<String, Object> storageProperties)
     {
         final String   repositoryName = "Graph Open Metadata Repository";
 
@@ -195,8 +201,7 @@ public class OMRSConfigurationFactory
                                                                                            localServerURL);
 
         localRepositoryConfig.
-                setLocalRepositoryLocalConnection(connectorConfigurationFactory.getLocalGraphRepositoryLocalConnection(repositoryName,
-                                                                                                                       localServerName));
+                setLocalRepositoryLocalConnection(connectorConfigurationFactory.getLocalGraphRepositoryLocalConnection(storageProperties));
 
         return localRepositoryConfig;
     }
@@ -291,16 +296,15 @@ public class OMRSConfigurationFactory
     /**
      * Returns a repository services config with the audit log set up.
      *
-     * @param localServerName name of the local server
      * @return minimally configured repository services config
      */
-    public RepositoryServicesConfig getDefaultRepositoryServicesConfig(String localServerName)
+    public RepositoryServicesConfig getDefaultRepositoryServicesConfig()
     {
         RepositoryServicesConfig repositoryServicesConfig = new RepositoryServicesConfig();
 
         List<Connection>   auditLogStoreConnections = new ArrayList<>();
 
-        auditLogStoreConnections.add(connectorConfigurationFactory.getDefaultAuditLogConnection(localServerName));
+        auditLogStoreConnections.add(connectorConfigurationFactory.getDefaultAuditLogConnection());
 
         repositoryServicesConfig.setAuditLogConnections(auditLogStoreConnections);
 

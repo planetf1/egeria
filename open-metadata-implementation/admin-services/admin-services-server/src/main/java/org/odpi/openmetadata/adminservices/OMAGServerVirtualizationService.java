@@ -44,7 +44,6 @@ public class OMAGServerVirtualizationService {
 
             virtualizationConfig.setVirtualizerInboundTopic(
                     connectorConfigurationFactory.getDefaultEventBusConnection(
-                            defaultOutTopicName,
                             eventBusConfig.getConnectorProvider(),
                             eventBusConfig.getTopicURLRoot() + ".server." + serverName,
                             virtualizationConfig.getVirtualizerInboundTopicName(),
@@ -55,7 +54,6 @@ public class OMAGServerVirtualizationService {
 
             virtualizationConfig.setVirtualizerOutboundTopic(
                     connectorConfigurationFactory.getDefaultEventBusConnection(
-                            defaultInTopicName,
                             eventBusConfig.getConnectorProvider(),
                             eventBusConfig.getTopicURLRoot() + ".server." + serverName,
                             virtualizationConfig.getVirtualizerOutboundTopicName(),
@@ -66,7 +64,6 @@ public class OMAGServerVirtualizationService {
 
             virtualizationConfig.setVirtualizationSolutionConnection(
                     connectorConfigurationFactory.getVirtualizationSolutionConnection(
-                            serverName,
                             virtualizationConfig.getVirtualizationProvider(),
                             virtualizationConfig.getVirtualizationSolutionConfig()
                     )
@@ -87,7 +84,7 @@ public class OMAGServerVirtualizationService {
         }
         catch (Throwable  error)
         {
-            exceptionHandler.captureRuntimeException(serverName, methodName, response, error);
+            exceptionHandler.capturePlatformRuntimeException(serverName, methodName, response, error);
         }
 
         return response;
@@ -117,7 +114,7 @@ public class OMAGServerVirtualizationService {
         }
         catch (Throwable  error)
         {
-            exceptionHandler.captureRuntimeException(serverName, methodName, response, error);
+            exceptionHandler.capturePlatformRuntimeException(serverName, methodName, response, error);
         }
 
         return response;

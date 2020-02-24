@@ -35,6 +35,7 @@ public class OMRSRESTMetadataCollection extends OMRSMetadataCollection
      *
      * @param parentConnector      connector that this metadata collection supports.  The connector has the information
      *                             to call the metadata repository.
+     * @param serverName           name of the remote server.
      * @param repositoryName       name of the repository used for logging.
      * @param repositoryHelper     class used to build type definitions and instances.
      * @param repositoryValidator  class used to validate type definitions and instances.
@@ -42,6 +43,7 @@ public class OMRSRESTMetadataCollection extends OMRSMetadataCollection
      * @throws RepositoryErrorException problem creating the REST client
      */
     OMRSRESTMetadataCollection(OMRSRESTRepositoryConnector parentConnector,
+                               String                      serverName,
                                String                      repositoryName,
                                OMRSRepositoryHelper        repositoryHelper,
                                OMRSRepositoryValidator     repositoryValidator,
@@ -87,11 +89,14 @@ public class OMRSRESTMetadataCollection extends OMRSMetadataCollection
                                                errorCode.getUserAction());
         }
 
+        /*
+         * Override the repository name
+         */
         super.repositoryName = defaultRepositoryName + endpointAddress;
 
         try
         {
-            this.omrsClient = new LocalRepositoryServicesClient(repositoryName,
+            this.omrsClient = new LocalRepositoryServicesClient(serverName,
                                                                 endpointAddress,
                                                                 localServerUserId,
                                                                 localServerPassword);
@@ -1158,8 +1163,8 @@ public class OMRSRESTMetadataCollection extends OMRSMetadataCollection
      * @param entityTypeGUID GUID of the type of entity to search for. Null means all types will
      *                       be searched (could be slow so not recommended).
      * @param searchCriteria String Java regular expression used to match against any of the String property values
-     *                       within the entities of the supplied type, even if it should be an exact match.
-     *                       (Retrieve all entities of the supplied type if this is either null or an empty string.)
+     *                       within entity instances of the specified type(s).
+     *                       This parameter must not be null.
      * @param fromEntityElement the starting element number of the entities to return.
      *                                This is used when retrieving elements
      *                                beyond the first page of results. Zero means start from the first element.
@@ -1376,7 +1381,8 @@ public class OMRSRESTMetadataCollection extends OMRSMetadataCollection
      * @param relationshipTypeGUID GUID of the type of entity to search for. Null means all types will
      *                       be searched (could be slow so not recommended).
      * @param searchCriteria String Java regular expression used to match against any of the String property values
-     *                       within the relationships of the supplied type, even if it should be an exact match.
+     *                       within the relationship instances of the specified type(s).
+     *                       This parameter must not be null.
      * @param fromRelationshipElement Element number of the results to skip to when building the results list
      *                                to return.  Zero means begin at the start of the results.  This is used
      *                                to retrieve the results over a number of pages.

@@ -43,9 +43,9 @@ Maven 3.5 or higher is required to build Egeria. 3.6.x or above is recommended.
 
 ## Build warnings
 
-Build output should be checked for any warnings ie '[WARNING]' and these should be eliminated. 
+Build output should be checked for any warnings ie `[WARNING]` and these should be eliminated.
 
-For example the java compiler is set to use '-Xlint:all' and may report warnings about deprecated function, unsafe casts, unchecked conversions etc which should be addressed.
+For example the java compiler is set to use `-Xlint:all` and may report warnings about deprecated function, unsafe casts, unchecked conversions etc which should be addressed.
 
 Other tools used in the build may also result in warnings which should also be addressed, whilst testcases should ensure output is captured to avoid such warnings appear in the build logs.
 
@@ -169,7 +169,11 @@ root. That will prove at least java, maven are correct .
 In addition, importantly, this also will retrieve additional dependencies which are not available in public
 repositories are retrieved, otherwise you may see an error like `Cannot resolve com.ibm.gaiandb:gaian` or `Cannot resolve org.apache.derby:derby`.
 
-We have also noticed that you need to ensure JAVA_HOME is set (see under 'Java' earlier on this page) or the build will fail running javadoc.
+We have also noticed that you need to ensure JAVA_HOME is set (see under 'Java' earlier on this page) or the build will fail running javadoc. 
+
+## Issue Tracking
+
+See [Issue Tracking](Issue-Tracking.md) for information about how we use issues in Egeria.
 
 ----
 License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/),

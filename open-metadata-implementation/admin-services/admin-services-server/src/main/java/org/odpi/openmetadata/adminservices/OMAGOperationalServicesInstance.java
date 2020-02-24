@@ -4,15 +4,17 @@ package org.odpi.openmetadata.adminservices;
 
 import org.odpi.openmetadata.adminservices.configuration.properties.OMAGServerConfig;
 import org.odpi.openmetadata.adminservices.configuration.registration.AccessServiceAdmin;
+import org.odpi.openmetadata.adminservices.configuration.registration.ViewServiceAdmin;
 import org.odpi.openmetadata.commonservices.multitenant.OMAGServerServiceInstance;
 import org.odpi.openmetadata.commonservices.ocf.metadatamanagement.admin.OCFMetadataOperationalServices;
 import org.odpi.openmetadata.conformance.server.ConformanceSuiteOperationalServices;
 import org.odpi.openmetadata.dataplatformservices.admin.DataPlatformOperationalServices;
-import org.odpi.openmetadata.discoveryserver.server.DiscoveryServerOperationalServices;
+import org.odpi.openmetadata.governanceservers.discoveryengineservices.server.DiscoveryServerOperationalServices;
 import org.odpi.openmetadata.governanceservers.dataengineproxy.admin.DataEngineProxyOperationalServices;
 import org.odpi.openmetadata.governanceservers.openlineage.admin.OpenLineageServerOperationalServices;
 import org.odpi.openmetadata.governanceservers.stewardshipservices.admin.StewardshipOperationalServices;
 import org.odpi.openmetadata.repositoryservices.admin.OMRSOperationalServices;
+import org.odpi.openmetadata.repositoryservices.auditlog.OMRSAuditLog;
 import org.odpi.openmetadata.securityofficerservices.registration.SecurityOfficerOperationalServices;
 import org.odpi.openmetadata.securitysyncservices.registration.SecuritySyncOperationalServices;
 import org.odpi.openmetadata.governanceservers.virtualizationservices.admin.VirtualizationOperationalServices;
@@ -26,39 +28,29 @@ import java.util.List;
 
 public class OMAGOperationalServicesInstance extends OMAGServerServiceInstance
 {
-    private OMAGServerConfig                    operationalConfiguration            = null;
-    private OMRSOperationalServices             operationalRepositoryServices       = null;
-    private OCFMetadataOperationalServices      operationalOCFMetadataServices      = null;
-    private List<AccessServiceAdmin>            operationalAccessServiceAdminList   = new ArrayList<>();
-    private ConformanceSuiteOperationalServices operationalConformanceSuiteServices = null;
-    private DiscoveryServerOperationalServices  operationalDiscoveryServer          = null;
+    private OMAGServerConfig                     operationalConfiguration            = null;
+    private OMRSOperationalServices              operationalRepositoryServices       = null;
+    private OCFMetadataOperationalServices       operationalOCFMetadataServices      = null;
+    private List<AccessServiceAdmin>             operationalAccessServiceAdminList   = new ArrayList<>();
+    private List<ViewServiceAdmin>               operationalViewServiceAdminList     = new ArrayList<>();
+    private ConformanceSuiteOperationalServices  operationalConformanceSuiteServices = null;
+    private DiscoveryServerOperationalServices   operationalDiscoveryServer          = null;
     private OpenLineageServerOperationalServices openLineageOperationalServices      = null;
-    private StewardshipOperationalServices      operationalStewardshipServices      = null;
-    private SecuritySyncOperationalServices     operationalSecuritySyncServices     = null;
-    private SecurityOfficerOperationalServices  operationalSecurityOfficerService   = null;
-    private VirtualizationOperationalServices   operationalVirtualizationServices   = null;
-    private DataEngineProxyOperationalServices  operationalDataEngineProxyServices  = null;
-    private DataPlatformOperationalServices     operationalDataPlatformServices     = null;
+    private StewardshipOperationalServices       operationalStewardshipServices      = null;
+    private SecuritySyncOperationalServices      operationalSecuritySyncServices     = null;
+    private SecurityOfficerOperationalServices   operationalSecurityOfficerService   = null;
+    private VirtualizationOperationalServices    operationalVirtualizationServices   = null;
+    private DataEngineProxyOperationalServices   operationalDataEngineProxyServices  = null;
+    private DataPlatformOperationalServices      operationalDataPlatformServices     = null;
+    private OMRSAuditLog                         auditLog                            = null;
 
-
-    /**
-     * Obsolete constructor
-     *
-     * @param serverName name of the new server
-     * @param serviceName name of the new service instance
-     */
-    @Deprecated
-    public OMAGOperationalServicesInstance(String   serverName,
-                                           String   serviceName)
-    {
-        super(serverName, serviceName);
-    }
 
     /**
      * Default constructor
      *
      * @param serverName name of the new server
      * @param serviceName name of the new service instance
+     * @param maxPageSize maximum number of results that can be returned
      */
     public OMAGOperationalServicesInstance(String   serverName,
                                            String   serviceName,
@@ -152,6 +144,27 @@ public class OMAGOperationalServicesInstance extends OMAGServerServiceInstance
     void setOperationalAccessServiceAdminList(List<AccessServiceAdmin> operationalAccessServiceAdminList)
     {
         this.operationalAccessServiceAdminList = operationalAccessServiceAdminList;
+    }
+
+    /**
+     * Return the list of references to the admin object for each active Open Metadata View Service (OMVS).
+     *
+     * @return list of ViewServiceAdmin objects
+     */
+    List<ViewServiceAdmin> getOperationalViewServiceAdminList()
+    {
+        return operationalViewServiceAdminList;
+    }
+
+
+    /**
+     * Set up the list of references to the admin object for each active Open Metadata View Service (OMVS).
+     *
+     * @param operationalViewServiceAdminList list of ViewServiceAdmin objects
+     */
+    void setOperationalViewServiceAdminList(List<ViewServiceAdmin> operationalViewServiceAdminList)
+    {
+        this.operationalViewServiceAdminList = operationalViewServiceAdminList;
     }
 
 
@@ -266,7 +279,7 @@ public class OMAGOperationalServicesInstance extends OMAGServerServiceInstance
      *
      * @return SecurityOfficerOperationalServices object
      */
-    public SecurityOfficerOperationalServices getOperationalSecurityOfficerService()
+    SecurityOfficerOperationalServices getOperationalSecurityOfficerService()
     {
         return operationalSecurityOfficerService;
     }
@@ -276,7 +289,7 @@ public class OMAGOperationalServicesInstance extends OMAGServerServiceInstance
      *
      * @param operationalSecurityOfficerService SecurityOfficerOperationalServices object
      */
-    public void setOperationalSecurityOfficerService(SecurityOfficerOperationalServices operationalSecurityOfficerService)
+    void setOperationalSecurityOfficerService(SecurityOfficerOperationalServices operationalSecurityOfficerService)
     {
         this.operationalSecurityOfficerService = operationalSecurityOfficerService;
     }
@@ -323,6 +336,7 @@ public class OMAGOperationalServicesInstance extends OMAGServerServiceInstance
         this.operationalDataEngineProxyServices = operationalDataEngineProxyServices;
     }
 
+
     /**
      * Return the running instance of Data Platform Service
      *
@@ -332,12 +346,36 @@ public class OMAGOperationalServicesInstance extends OMAGServerServiceInstance
         return operationalDataPlatformServices;
     }
 
+
     /**
      * Set up the running instance of Data Platform Service
      *
      * @param operationalDataPlatformServices DataPlatformOperationalServices
      */
-    void setOperationalDataPlatformServices(DataPlatformOperationalServices operationalDataPlatformServices) {
+    void setOperationalDataPlatformServices(DataPlatformOperationalServices operationalDataPlatformServices)
+    {
         this.operationalDataPlatformServices = operationalDataPlatformServices;
+    }
+
+
+    /**
+     * Retrieve the operational admin services' audit log.
+     *
+     * @return logging destination
+     */
+    public OMRSAuditLog getAuditLog()
+    {
+        return auditLog;
+    }
+
+
+    /**
+     * Set up the operational admin services' audit log.
+     *
+     * @param auditLog logging destination
+     */
+    public void setAuditLog(OMRSAuditLog auditLog)
+    {
+        this.auditLog = auditLog;
     }
 }

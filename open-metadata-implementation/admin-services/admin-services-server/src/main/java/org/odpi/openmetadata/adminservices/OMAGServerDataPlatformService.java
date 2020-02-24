@@ -12,8 +12,6 @@ import org.odpi.openmetadata.commonservices.ffdc.rest.VoidResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class OMAGServerDataPlatformService {
@@ -45,7 +43,6 @@ public class OMAGServerDataPlatformService {
             if (dataPlatformServicesConfig.getDataPlatformOmasInTopicName()==null) {
                 dataPlatformServicesConfig.setDataPlatformOmasInTopic(
                         connectorConfigurationFactory.getDefaultEventBusConnection(
-                                defaultInTopicName,
                                 eventBusConfig.getConnectorProvider(),
                                 eventBusConfig.getTopicURLRoot() + ".server." + serverName,
                                 defaultDataPlatformInTopicName,
@@ -58,7 +55,6 @@ public class OMAGServerDataPlatformService {
             } else {
                 dataPlatformServicesConfig.setDataPlatformOmasInTopic(
                         connectorConfigurationFactory.getDefaultEventBusConnection(
-                                defaultInTopicName,
                                 eventBusConfig.getConnectorProvider(),
                                 eventBusConfig.getTopicURLRoot() + ".server." + serverName,
                                 dataPlatformServicesConfig.getDataPlatformOmasInTopicName(),
@@ -81,7 +77,7 @@ public class OMAGServerDataPlatformService {
         }
         catch (Throwable  error)
         {
-            exceptionHandler.captureRuntimeException(serverName, methodName, response, error);
+            exceptionHandler.capturePlatformRuntimeException(serverName, methodName, response, error);
         }
 
         return response;
@@ -111,7 +107,7 @@ public class OMAGServerDataPlatformService {
         }
         catch (Throwable  error)
         {
-            exceptionHandler.captureRuntimeException(serverName, methodName, response, error);
+            exceptionHandler.capturePlatformRuntimeException(serverName, methodName, response, error);
         }
 
         return response;

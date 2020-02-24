@@ -30,17 +30,33 @@ public class DiscoveryAnnotationStoreClient extends DiscoveryAnnotationStore
      *
      * @param userId calling user
      * @param assetGUID unique identifier of the asset that the annotations should be attached to
-     * @param discoveryReportClient discovery report that is linked to the annotations.
+     * @param discoveryAnalysisReportClient discovery report that is linked to the annotations.
      * @param discoveryEngineClient client for calling REST APIs
      */
     public DiscoveryAnnotationStoreClient(String                userId,
                                           String                assetGUID,
-                                          DiscoveryReportClient discoveryReportClient,
+                                          DiscoveryAnalysisReportClient discoveryAnalysisReportClient,
                                           DiscoveryEngineClient discoveryEngineClient)
     {
-        super(userId, assetGUID, discoveryReportClient);
+        super(userId, assetGUID, discoveryAnalysisReportClient);
 
         this.discoveryEngineClient = discoveryEngineClient;
+    }
+
+
+    /**
+     * Return the annotation subtype names.
+     *
+     * @return list of type names that are subtypes of annotation
+     * @throws InvalidParameterException full path or userId is null
+     * @throws PropertyServerException problem accessing property server
+     * @throws UserNotAuthorizedException security access problem
+     */
+    public List<String>  getTypesOfAnnotation() throws InvalidParameterException,
+                                                       UserNotAuthorizedException,
+                                                       PropertyServerException
+    {
+        return discoveryEngineClient.getTypesOfAnnotation(userId);
     }
 
 

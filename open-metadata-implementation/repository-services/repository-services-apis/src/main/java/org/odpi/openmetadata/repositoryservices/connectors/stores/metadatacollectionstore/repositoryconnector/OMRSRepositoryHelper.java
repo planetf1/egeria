@@ -196,6 +196,17 @@ public interface OMRSRepositoryHelper extends OMRSRepositoryPropertiesHelper
 
 
     /**
+     * Return the list of type names for all of the subtypes of an entity type.
+     *
+     * @param sourceName source of the request (used for logging)
+     * @param superTypeName name of the super type - this value is not included in the result.
+     * @return list of type names (a null means the type is not know or it has no sub types)
+     */
+    List<String>  getSubTypesOf(String sourceName,
+                                String superTypeName);
+
+
+    /**
      * Return the names of all of the properties in the supplied TypeDef and all of its super-types.
      *
      * @param sourceName name of caller.
@@ -795,4 +806,54 @@ public interface OMRSRepositoryHelper extends OMRSRepositoryPropertiesHelper
      * @see #getEndsWithRegex(String)
      */
     String getUnqualifiedLiteralString(String searchString);
+
+
+    /**
+     * Calculate the differences between the two provided Relationship objects.
+     *
+     * @param left one of the Relationship objects to compare
+     * @param right the other Relationship object to compare
+     * @param ignoreModificationStamps true if we should ignore modification details (Version, UpdateTime, UpdatedBy)
+     *                                 as differences, or false if we should include differences on these
+     * @return RelationshipDifferences
+     */
+    RelationshipDifferences getRelationshipDifferences(Relationship left, Relationship right, boolean ignoreModificationStamps);
+
+
+    /**
+     * Calculate the differences between the two provided EntityDetail objects.
+     *
+     * @param left one of the EntityDetail objects to compare
+     * @param right the other EntityDetail object to compare
+     * @param ignoreModificationStamps true if we should ignore modification details (Version, UpdateTime, UpdatedBy)
+     *                                 as differences, or false if we should include differences on these
+     * @return EntityDetailDifferences
+     */
+    EntityDetailDifferences getEntityDetailDifferences(EntityDetail left, EntityDetail right, boolean ignoreModificationStamps);
+
+
+    /**
+     * Calculate the differences between the two provided EntityProxy objects.
+     *
+     * @param left one of the EntityProxy objects to compare
+     * @param right the other EntityProxy object to compare
+     * @param ignoreModificationStamps true if we should ignore modification details (Version, UpdateTime, UpdatedBy)
+     *                                 as differences, or false if we should include differences on these
+     * @return EntityProxyDifferences
+     */
+    EntityProxyDifferences getEntityProxyDifferences(EntityProxy left, EntityProxy right, boolean ignoreModificationStamps);
+
+
+    /**
+     * Calculate the differences between the two provided EntitySummary objects.
+     *
+     * @param left one of the EntitySummary objects to compare
+     * @param right the other EntitySummary object to compare
+     * @param ignoreModificationStamps true if we should ignore modification details (Version, UpdateTime, UpdatedBy)
+     *                                 as differences, or false if we should include differences on these
+     * @return EntitySummaryDifferences
+     */
+    EntitySummaryDifferences getEntitySummaryDifferences(EntitySummary left, EntitySummary right, boolean ignoreModificationStamps);
+
+
 }

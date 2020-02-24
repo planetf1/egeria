@@ -13,7 +13,7 @@ It also links to each asset that the annotation relates to.
 Strings are used in many of the attributes to keep the model open
 for discovery service developers and the tools that process them.
 
-![UML](0610-Annotations.png)
+![UML](0610-Annotations.png#pagewidth)
 
 * **annotationType** - descriptive string that acts as an identifier for the specific annotation type.  This is a simple means to sub-type any one of the annotation subclasses.
 * **summary** - a human readable string to describe the annotation.
@@ -33,6 +33,7 @@ The types that follow provide more specialized annotations.
 * **[0635 Classification Discovery](0635-Classification-Discovery.md)**
 * **[0640 Quality Scores](0640-Quality-Scores.md)**
 * **[0650 Relationship Discovery](0650-Relationship-Discovery.md)**
+* **[0655 Asset Deduplication](0655-Asset-Deduplication.md)**
 * **[0660 Measurements](0660-Data-Source-Measurements.md)**
 * **[0690 Request for Action](0690-Request-for-Action.md)**
 

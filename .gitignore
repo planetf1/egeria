@@ -71,7 +71,6 @@ __MACOSX
 
 # specific Egeria config files
 omag.server.*.config
-ui.server.*.config
 
 *.registrystore
 *.testlab.results
@@ -87,8 +86,7 @@ keystore_*/**
 egeria-lineage-repositories/**
 
 # Ignore local graph repo
-egeria-graph-repository/**
-omas-graph-repository/**
+*-graph-repository/**
 
 # Ignore archives
 CloudInformationModel.json
