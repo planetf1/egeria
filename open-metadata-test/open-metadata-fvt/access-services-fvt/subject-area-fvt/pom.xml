@@ -60,7 +60,114 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Integration testing -->
+
+            <!-- We will use groovy for cross-platform scripting to prepare the environment through REST calls -->
+            <!--plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>2.2-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>
+                                import static org.toilelibre.libe.curl.Curl.$;
+
+                                try {
+                                    $("curl -k " +
+                                            "-o target/openapi.json https://localhost:1234/openapi");
+                                }
+                                catch (Exception e) {
+                                    System.err.println(e)
+                                }
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.toile-libre.libe</groupId>
+                        <artifactId>curl</artifactId>
+                        <version>0.0.29</version>
+                    </dependency>
+                </dependencies>
+            </plugin-->
+
+            <!-- Groovy is used to launch the servers before the test -->
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>2.1.1</version>
+                <executions>
+                    <execution>
+                        <id>start</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <defaults>
+                                <name>Egeria chassis</name>
+                            </defaults>
+                            <source>
+                                println 'Starting up ' + properties['name']
+                            </source>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <defaults>
+                                <name>Xenu</name>
+                            </defaults>
+                            <source>
+                                println 'Stopping ' + properties['name']
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+                <!-- need specific version here - pluginManagement etc not sufficient - the dependency version isn't enforced -->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                        <version>${groovy.version}</version>
+                        <type>pom</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.testng</groupId>
+                        <artifactId>testng</artifactId>
+                        <version>${testng.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- failsafe is enabled in the integration test module, but we use non standard paths and filenames, so override for Subject Area -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+
+            <!-- Javadoc missing from SA fvt. Skipping for now -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
         </plugins>
+
     </build>
 
 </project>

@@ -30,4 +30,41 @@
         <module>access-services-fvt</module>
         <module>open-types-fvt</module>
     </modules>
+
+    <dependencies>
+        <!-- full asssembly needed to run some FVTs against a fully configured server chassis-->
+        <dependency>
+            <groupId>org.odpi.egeria</groupId>
+            <artifactId>open-metadata-assemblies</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>analyze</id>
+                        <goals>
+                            <goal>analyze-only</goal>
+                        </goals>
+                        <configuration>
+                            <ignoredUnusedDeclaredDependencies combine.children="append">
+                                <!-- The full assembly is assumed for integration tests, but we need to skip checks as we won't actually use the maven artifact for build -->
+                                <ignoredUnusedDeclaredDependency>org.odpi.egeria:open-metadata-assemblies:*</ignoredUnusedDeclaredDependency>
+                            </ignoredUnusedDeclaredDependencies>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

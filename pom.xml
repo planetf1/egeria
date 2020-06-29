@@ -2621,6 +2621,7 @@
                     <version>${springdoc-plugin.version}</version>
                 </plugin>
 
+                <!-- used for integration tests -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
