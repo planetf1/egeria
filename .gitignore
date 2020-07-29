@@ -163,3 +163,4 @@ THIRD_PARTY*.txt
 # gradle
 .gradle/
 build/
+!gradle/**
