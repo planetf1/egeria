@@ -198,7 +198,7 @@
         <avro.version>1.10.0</avro.version>
         <derby.version>10.8.3.1</derby.version>
         <hadoop.version>2.9.2</hadoop.version>
-        <ranger.version>1.2.0</ranger.version>
+        <ranger.version>2.1.0</ranger.version>
         <plexus.version>3.3.0</plexus.version>
         <quartz.version>2.3.2</quartz.version>
         <lucene.version>8.4.1</lucene.version>
@@ -3223,7 +3223,7 @@
                         <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
                             <licenseFamilyCategory>SPDX</licenseFamilyCategory>
                             <licenseFamilyName>SPDX-License-Identifier: Apache-2.0</licenseFamilyName>
-                            <notes></notes>
+                            <notes/>
                             <patterns>
                                 <pattern>SPDX-License-Identifier: Apache-2.0</pattern>
                             </patterns>
@@ -3231,7 +3231,7 @@
                         <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
                             <licenseFamilyCategory>SPDX</licenseFamilyCategory>
                             <licenseFamilyName>SPDX-License-Identifier: CC-BY-4.0</licenseFamilyName>
-                            <notes></notes>
+                            <notes/>
                             <patterns>
                                 <pattern>SPDX-License-Identifier: CC-BY-4.0</pattern>
                             </patterns>
@@ -3628,8 +3628,7 @@
                                 <phase>initialize</phase>
                                 <configuration>
                                     <target>
-                                        <unzip src="${project.build.directory}/GAIANDB_V2.1.8_20160523.zip"
-                                               dest="${project.build.directory}">
+                                        <unzip src="${project.build.directory}/GAIANDB_V2.1.8_20160523.zip" dest="${project.build.directory}">
                                             <patternset>
                                                 <include name="**/GAIANDB.jar"/>
                                                 <include name="**/derby.jar"/>
